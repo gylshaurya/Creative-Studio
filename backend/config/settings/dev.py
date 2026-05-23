@@ -1,3 +1,3 @@
 from .base import *
 DEBUG = True
-# dev-only overrides
+CORS_ALLOW_ALL_ORIGINS = True
