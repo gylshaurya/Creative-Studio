@@ -22,10 +22,14 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('api/auth/', include('users.urls')),
     path('api/auth/token/', TokenObtainPairView.as_view()),
     path('api/auth/token/refresh/', TokenRefreshView.as_view()),
 
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger/', SpectacularSwaggerView.as_view(url_name='schema')),
+=======
+    path('api/auth/', include('users.urls'))
+>>>>>>> 66acc52 (feat: implement /api/auth/me/ user profile endpoints)
 ]
