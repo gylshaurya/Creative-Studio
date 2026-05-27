@@ -5,11 +5,13 @@ from urllib.parse import urlparse, parse_qsl
 
 from datetime import timedelta
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR.parent.parent / '.env')
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-load_dotenv(BASE_DIR.parent.parent / '.env')
+
 
 ALLOWED_HOSTS = []
 
