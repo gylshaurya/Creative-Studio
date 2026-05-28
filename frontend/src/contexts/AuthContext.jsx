@@ -1,20 +1,39 @@
-import { createContext, useContext, useState } from 'react'
-import { apiFetch, setTokens, clearTokens } from '../api/fetch'
+import { createContext, useContext, useState, useEffect } from 'react'
+import { apiFetch, setTokens, clearTokens, getAccessToken } from '../api/fetch'
 
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const restoreSession = async () => {
+            const token = getAccessToken()
+            if (token) {
+                try {
+                    const response = await apiFetch('/auth/me/')
+                    if (response.ok) {
+                        const userData = await response.json()
+                        setUser(userData)
+                    } else {
+                        clearTokens()
+                    }
+                } catch {
+                    clearTokens()
+                }
+            }
+            setLoading(false)
+        }
+        restoreSession()
+    }, [])
 
     const login = async (username, password) => {
         const response = await apiFetch('/auth/token/', {
             method: 'POST',
             body: JSON.stringify({ username, password }),
         })
-
-        if (!response.ok) {
-            throw new Error('Invalid credentials')
-        }
+        if (!response.ok) throw new Error('Invalid credentials')
 
         const data = await response.json()
         setTokens(data.access, data.refresh)
@@ -28,6 +47,8 @@ export function AuthProvider({ children }) {
         clearTokens()
         setUser(null)
     }
+
+    if (loading) return null
 
     return (
         <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>

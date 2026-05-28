@@ -1,19 +1,17 @@
 const BASE_URL = 'http://127.0.0.1:8000/api'
 
-const tokenStore = {
-    access: null,
-    refresh: null,
-}
-
 export const setTokens = (access, refresh) => {
-    tokenStore.access = access
-    tokenStore.refresh = refresh
+    localStorage.setItem('access', access)
+    localStorage.setItem('refresh', refresh)
 }
 
 export const clearTokens = () => {
-    tokenStore.access = null
-    tokenStore.refresh = null
+    localStorage.removeItem('access')
+    localStorage.removeItem('refresh')
 }
+
+export const getAccessToken = () => localStorage.getItem('access')
+export const getRefreshToken = () => localStorage.getItem('refresh')
 
 export async function apiFetch(path, options = {}) {
     const headers = {
@@ -21,31 +19,34 @@ export async function apiFetch(path, options = {}) {
         ...options.headers,
     }
 
-    if (tokenStore.access) {
-        headers['Authorization'] = `Bearer ${tokenStore.access}`
+    const access = getAccessToken()
+    if (access) {
+        headers['Authorization'] = `Bearer ${access}`
     }
 
-    let response = await fetch(`${BASE_URL}${path}`, {
-        ...options,
-        headers,
-    })
+    let response = await fetch(`${BASE_URL}${path}`, { ...options, headers })
 
-    if (response.status === 401 && tokenStore.refresh) {
+    // Token expired — try refreshing
+    if (response.status === 401) {
+        const refresh = getRefreshToken()
+        if (!refresh) {
+            clearTokens()
+            window.location.href = '/login'
+            return
+        }
+
         const refreshResponse = await fetch(`${BASE_URL}/auth/token/refresh/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ refresh: tokenStore.refresh }),
+            body: JSON.stringify({ refresh }),
         })
 
         if (refreshResponse.ok) {
             const data = await refreshResponse.json()
-            tokenStore.access = data.access
+            localStorage.setItem('access', data.access)
 
-            headers['Authorization'] = `Bearer ${tokenStore.access}`
-            response = await fetch(`${BASE_URL}${path}`, {
-                ...options,
-                headers,
-            })
+            headers['Authorization'] = `Bearer ${data.access}`
+            response = await fetch(`${BASE_URL}${path}`, { ...options, headers })
         } else {
             clearTokens()
             window.location.href = '/login'

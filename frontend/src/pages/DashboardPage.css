@@ -1,0 +1,174 @@
+.dashboard-wrapper {
+    min-height: 100vh;
+    background-color: #f0ede8;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-brand {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1a2a4a;
+}
+
+.dashboard-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.btn-logout {
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    color: #888;
+    cursor: pointer;
+}
+
+.btn-logout:hover {
+    color: #1a2a4a;
+}
+
+.dashboard-main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.dashboard-loading {
+    padding: 3rem;
+    text-align: center;
+    color: #888;
+}
+
+.dashboard-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.section-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.badge {
+    background: #e8e4de;
+    color: #555;
+    font-size: 0.75rem;
+    padding: 1px 7px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.task-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.task-card.overdue {
+    border-left: 3px solid #e74c3c;
+}
+
+.task-title {
+    font-size: 0.9rem;
+    color: #1a2a4a;
+    flex: 1;
+}
+
+.task-meta {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.task-deadline {
+    font-size: 0.8rem;
+    color: #e74c3c;
+}
+
+.tag {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.priority-high   { background: #fdecea; color: #c0392b; }
+.priority-medium { background: #fef9e7; color: #b7950b; }
+.priority-low    { background: #eafaf1; color: #1e8449; }
+
+.stage-draft    { background: #eaf0fb; color: #2471a3; }
+.stage-review   { background: #fef9e7; color: #b7950b; }
+.stage-revision { background: #fdecea; color: #c0392b; }
+.stage-approved { background: #eafaf1; color: #1e8449; }
+
+.project-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.project-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.progress-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background: #f0ede8;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #1a2a4a;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.progress-label {
+    font-size: 0.8rem;
+    color: #aaa;
+    white-space: nowrap;
+}
+
+.empty {
+    font-size: 0.85rem;
+    color: #bbb;
+    padding: 0.5rem 0;
+}

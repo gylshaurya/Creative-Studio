@@ -19,6 +19,7 @@ from django.urls import path, include
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from projects.views import DashboardView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +33,5 @@ urlpatterns = [
     path('api/', include('studios.urls')),
     path('api/', include('projects.urls')),
     path('api/', include('notifications.urls')),
+    path('api/dashboard/', DashboardView.as_view()),
 ]
