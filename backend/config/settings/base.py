@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qsl
 from datetime import timedelta
 
+<<<<<<< HEAD
 # 1. Step back THREE times to make BASE_DIR point to 'backend/'
 # base.py -> settings -> config -> backend
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -16,6 +17,18 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 # Let's also open up ALLOWED_HOSTS for local development communication
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+=======
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR.parent.parent / '.env')
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+
+
+ALLOWED_HOSTS = []
+
+>>>>>>> origin/main
 
 # Application definition
 
@@ -103,6 +116,7 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
 }
 
 

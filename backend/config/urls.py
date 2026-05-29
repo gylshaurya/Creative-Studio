@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from projects.views import DashboardView
 
 
 urlpatterns = [
@@ -29,7 +30,16 @@ urlpatterns = [
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger/', SpectacularSwaggerView.as_view(url_name='schema')),
+<<<<<<< HEAD
     path('api/', include('tasks.urls')),
     path('api/', include('notifications.urls')),
 
 ]
+=======
+
+    path('api/', include('studios.urls')),
+    path('api/', include('projects.urls')),
+    path('api/', include('notifications.urls')),
+    path('api/dashboard/', DashboardView.as_view()),
+]
+>>>>>>> origin/main

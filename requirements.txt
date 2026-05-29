@@ -8,6 +8,11 @@ django-stubs-ext==6.0.5
 djangorestframework==3.17.1
 djangorestframework-stubs==3.17.0
 djangorestframework_simplejwt==5.5.1
+<<<<<<< HEAD
+=======
+dotenv==0.9.9
+drf-nested-routers==0.95.0
+>>>>>>> origin/main
 drf-spectacular==0.29.0
 inflection==0.5.1
 jsonschema==4.26.0
