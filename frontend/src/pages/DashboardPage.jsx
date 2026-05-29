@@ -26,6 +26,14 @@ function DashboardPage() {
         <div className="dashboard-wrapper">
             <header className="dashboard-header">
                 <span className="dashboard-brand">Creative Studio</span>
+                <nav className="nav-links" style={{ display: 'flex', gap: '1.5rem' }}>
+                    <a href="/dashboard" style={{ fontSize: '0.9rem', color: '#888', textDecoration: 'none' }}>
+                        Dashboard
+                    </a>
+                    <a href="/projects" style={{ fontSize: '0.9rem', color: '#888', textDecoration: 'none' }}>
+                        Projects
+                    </a>
+                </nav>
                 <div className="dashboard-user">
                     <span>{user?.username}</span>
                     <button onClick={logout} className="btn-logout">Log out</button>
