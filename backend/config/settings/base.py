@@ -2,17 +2,20 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qsl
-
 from datetime import timedelta
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# 1. Step back THREE times to make BASE_DIR point to 'backend/'
+# base.py -> settings -> config -> backend
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# 2. Now BASE_DIR.parent points perfectly to 'Creative-Studio/' (the root folder)
+load_dotenv(os.path.join(BASE_DIR.parent, '.env'))
+
+# 3. Extract the keys safely
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-load_dotenv(BASE_DIR.parent.parent / '.env')
-
-ALLOWED_HOSTS = []
-
+# Let's also open up ALLOWED_HOSTS for local development communication
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -76,7 +79,7 @@ DatabaseURL = urlparse(os.getenv("DATABASE_URL"))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DatabaseURL.path.replace('/', ''),
+        'NAME': str(DatabaseURL.path).replace('/', ''),
         'USER': DatabaseURL.username,
         'PASSWORD': DatabaseURL.password,
         'HOST': DatabaseURL.hostname,
@@ -138,3 +141,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
