@@ -6,6 +6,8 @@ The backend is Django REST Framework. The frontend is React. Teams can manage pr
 
 ---
 
+Deployment Link: https://creative-studio-phi.vercel.app/dashboard
+
 ## What it does
 
 - Multiple studios with role-based access (Admin, Project Lead, Designer, Writer, Reviewer, Client)
