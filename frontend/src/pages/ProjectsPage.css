@@ -202,3 +202,210 @@
     font-size: 0.85rem;
     color: #bbb;
 }
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 560px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.25rem 1.25rem 0.75rem;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a2a4a;
+    margin-bottom: 0.4rem;
+}
+
+.modal-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.modal-stage {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: #eaf0fb;
+    color: #2471a3;
+    font-weight: 500;
+}
+
+.modal-deadline {
+    font-size: 0.72rem;
+    color: #aaa;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    margin-left: 1rem;
+}
+
+.modal-close:hover {
+    color: #1a2a4a;
+}
+
+.modal-description {
+    padding: 0.75rem 1.25rem 0;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.modal-body {
+    overflow-y: auto;
+    padding: 1rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.modal-section-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1a2a4a;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.comment {
+    background: #f8f7f5;
+    border-radius: 8px;
+    padding: 0.65rem 0.85rem;
+}
+
+.comment-reply {
+    margin-left: 1.25rem;
+    margin-top: 0.5rem;
+    background: #f0ede8;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
+.comment-author {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #1a2a4a;
+}
+
+.comment-time {
+    font-size: 0.72rem;
+    color: #bbb;
+}
+
+.comment-content {
+    font-size: 0.83rem;
+    color: #444;
+}
+
+.reply-btn {
+    background: none;
+    border: none;
+    font-size: 0.75rem;
+    color: #888;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 0.3rem;
+}
+
+.reply-btn:hover {
+    color: #1a2a4a;
+}
+
+.reply-indicator {
+    font-size: 0.78rem;
+    color: #888;
+    margin-bottom: 0.4rem;
+}
+
+.modal-input-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.modal-input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    background: #fafafa;
+    outline: none;
+}
+
+.modal-input:focus {
+    border-color: #1a2a4a;
+}
+
+.attachments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.attachment-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #f8f7f5;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+}
+
+.attachment-icon {
+    font-size: 0.85rem;
+}
+
+.attachment-label {
+    flex: 1;
+    font-size: 0.83rem;
+    color: #1a2a4a;
+}
+
+.attachment-by {
+    font-size: 0.72rem;
+    color: #bbb;
+}
