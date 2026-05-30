@@ -1,20 +1,9 @@
-<<<<<<< HEAD
-from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .viewset import NotificationViewSet
+from .viewset import NotificationViewSet  # Points to your viewset file
 
 router = DefaultRouter()
+# Register the notification endpoints cleanly
 router.register(r'notifications', NotificationViewSet, basename='notification')
 
-urlpatterns = [
-    path('', include(router.urls)),
-]
-=======
-from rest_framework.routers import DefaultRouter
-from .views import NotificationViewSet
-
-router = DefaultRouter()
-router.register('notifications', NotificationViewSet, basename='notifications')
-
+# Direct clean routing mapping
 urlpatterns = router.urls
->>>>>>> origin/main

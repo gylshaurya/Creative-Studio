@@ -1,53 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { apiClient } from '../../services/api';
 
-const AttachmentSection = () => {
-  const [attachments, setAttachments] = useState([
-    {
-      id: 1,
-      title: "Podcast Cover Art Draft",
-      url: "https://figma.com/file/sample-onrec-artboard",
-      created_at: "2 hours ago"
-    },
-    {
-      id: 2,
-      title: "Episode 4 Anchoring Script",
-      url: "https://docs.google.com/document/d/sample-script",
-      created_at: "Yesterday"
-    }
-  ]);
-
+const AttachmentSection = ({ taskId }) => {
+  const [attachments, setAttachments] = useState([]);
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
   const [isAdding, setIsAdding] = useState(false);
 
-  // Helper to dynamically render badges/icons based on the domain URL string
-  const getPlatformBadge = (urlStr) => {
+  useEffect(() => {
+    apiClient.get(`/attachments/?task=${taskId}`)
+      .then(data => setAttachments(Array.isArray(data) ? data : data.results || []))
+      .catch(() => {});
+  }, [taskId]);
+
+  const getPlatformBadge = (urlStr = '') => {
     const lowerUrl = urlStr.toLowerCase();
-    if (lowerUrl.includes('figma.com')) {
+    if (lowerUrl.includes('figma.com'))
       return { text: '🎨 Figma', bg: 'bg-orange-50 text-orange-700 border-orange-200' };
-    }
-    if (lowerUrl.includes('docs.google') || lowerUrl.includes('drive.google')) {
+    if (lowerUrl.includes('docs.google') || lowerUrl.includes('drive.google'))
       return { text: '📄 Google Docs', bg: 'bg-blue-50 text-blue-700 border-blue-200' };
-    }
     return { text: '🔗 Link', bg: 'bg-slate-50 text-slate-700 border-slate-200' };
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title.trim() || !url.trim()) return;
 
-    // Direct mirror of Django's incoming creation schema payload
-    const newAsset = {
-      id: Date.now(), // Fallback temporary local ID
-      title: title,
-      url: url,
-      created_at: "Just now"
-    };
-
-    setAttachments([...attachments, newAsset]);
-    setTitle('');
-    setUrl('');
-    setIsAdding(false);
+    try {
+      const saved = await apiClient.post('/attachments/', {
+        task: taskId,
+        title,
+        resource_url: url,
+        label: 'other'
+      });
+      setAttachments([...attachments, saved]);
+      setTitle('');
+      setUrl('');
+      setIsAdding(false);
+    } catch (err) {
+      alert("Failed to save attachment.");
+    }
   };
 
   return (
@@ -56,7 +48,7 @@ const AttachmentSection = () => {
         <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wider">
           Workspace Deliverables ({attachments.length})
         </h4>
-        <button 
+        <button
           onClick={() => setIsAdding(!isAdding)}
           className="text-xs bg-indigo-50 text-indigo-600 hover:bg-indigo-100 font-bold px-2.5 py-1 rounded-lg transition-colors"
         >
@@ -64,13 +56,15 @@ const AttachmentSection = () => {
         </button>
       </div>
 
-      {/* Dynamic Asset Grid Layout */}
       <div className="space-y-2">
+        {attachments.length === 0 && !isAdding && (
+          <p className="text-xs text-slate-400 text-center py-4">No attachments yet.</p>
+        )}
         {attachments.map((asset) => {
-          const badge = getPlatformBadge(asset.url);
+          const badge = getPlatformBadge(asset.resource_url);
           return (
-            <div 
-              key={asset.id} 
+            <div
+              key={asset.id}
               className="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl hover:shadow-sm transition-all"
             >
               <div className="flex items-center gap-3">
@@ -79,27 +73,28 @@ const AttachmentSection = () => {
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-slate-700 leading-none">{asset.title}</p>
-                  <span className="text-[10px] text-slate-400 font-medium mt-1 inline-block">{asset.created_at}</span>
+                  <span className="text-[10px] text-slate-400 font-medium mt-1 inline-block">
+                    {asset.label_display || asset.label}
+                  </span>
                 </div>
               </div>
-              <a 
-                href={asset.url} 
-                target="_blank" 
-                rel="noreferrer" 
+              
+                <a href={asset.resource_url}
+                target="_blank"
+                rel="noreferrer"
                 className="text-xs font-bold text-indigo-600 hover:text-indigo-800 hover:underline"
               >
-                Open Resource →
+                Open →
               </a>
             </div>
           );
         })}
       </div>
 
-      {/* Asset Inclusion Form Panel */}
       {isAdding && (
-        <form onSubmit={handleSubmit} className="mt-4 p-4 border border-slate-200 rounded-xl bg-slate-50 space-y-3 animate-fadeIn">
+        <form onSubmit={handleSubmit} className="mt-4 p-4 border border-slate-200 rounded-xl bg-slate-50 space-y-3">
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Asset Display Title</label>
+            <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Asset Title</label>
             <input
               type="text"
               placeholder="e.g., Final Thumbnail Layout"
@@ -109,7 +104,7 @@ const AttachmentSection = () => {
             />
           </div>
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Workspace Resource URL</label>
+            <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Resource URL</label>
             <input
               type="url"
               placeholder="https://figma.com/..."
@@ -119,8 +114,8 @@ const AttachmentSection = () => {
             />
           </div>
           <div className="flex justify-end">
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="bg-indigo-600 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold hover:bg-indigo-700 transition-colors"
             >
               Save Deliverable

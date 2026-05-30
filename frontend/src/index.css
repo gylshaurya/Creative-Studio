@@ -1,20 +1,6 @@
-<<<<<<< HEAD
 @import "tailwindcss";
 
 @theme {
   --color-studio-brand: #4f46e5;
   --color-studio-dark: #0f172a;
-=======
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: #f0ede8;
-    color: #1a2a4a;
-    -webkit-font-smoothing: antialiased;
->>>>>>> origin/main
 }

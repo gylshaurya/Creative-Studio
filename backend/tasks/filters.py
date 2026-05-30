@@ -8,7 +8,8 @@ class TaskFilter(django_filters.FilterSet):
     priority = django_filters.CharFilter(field_name='priority', lookup_expr='exact')
     deadline_before = django_filters.DateFilter(field_name='deadline', lookup_expr='lte')
     deadline_after = django_filters.DateFilter(field_name='deadline', lookup_expr='gte')
+    project = django_filters.NumberFilter(field_name='project__id')
 
     class Meta:
         model = Task
-        fields = ['stage', 'assignee', 'priority']
+        fields = ['stage', 'assignee', 'priority','project']

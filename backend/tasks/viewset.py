@@ -1,9 +1,12 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from .models import Attachment, Comment, Task  # <-- Ensure 'Task' is imported here!
+# ✨ CRITICAL IMPORT: Bring in the JWT authentication mechanism explicitly
+from rest_framework_simplejwt.authentication import JWTAuthentication 
+from .models import Attachment, Comment, Task
 
 class AttachmentViewSet(viewsets.ModelViewSet):
     queryset = Attachment.objects.all()
+    authentication_classes = [JWTAuthentication] # 🔒 Force JWT verification
     permission_classes = [IsAuthenticated]
 
     @property
@@ -16,6 +19,7 @@ class AttachmentViewSet(viewsets.ModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
+    authentication_classes = [JWTAuthentication] # 🔒 Force JWT verification
     permission_classes = [IsAuthenticated]
 
     @property
@@ -39,14 +43,13 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 
-# ✨ ADD THIS CLASS AT THE BOTTOM OF THE FILE
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
+    authentication_classes = [JWTAuthentication] # 🔒 Force JWT verification
     permission_classes = [IsAuthenticated]
 
     @property
     def serializer_class(self):
-        # We will create this simple serializer in Step 2 next
         from .serializers import TaskSerializer
         return TaskSerializer
 

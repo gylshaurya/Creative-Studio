@@ -4,34 +4,16 @@ from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qsl
 from datetime import timedelta
 
-<<<<<<< HEAD
-# 1. Step back THREE times to make BASE_DIR point to 'backend/'
-# base.py -> settings -> config -> backend
+# ✨ FIXED: Standardized path resolution to safely pick up the workspace root
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
-# 2. Now BASE_DIR.parent points perfectly to 'Creative-Studio/' (the root folder)
 load_dotenv(os.path.join(BASE_DIR.parent, '.env'))
 
-# 3. Extract the keys safely
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-# Let's also open up ALLOWED_HOSTS for local development communication
+# Open up hosts so frontend local clients can talk to your Django port seamlessly
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-=======
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR.parent.parent / '.env')
-SECRET_KEY = os.getenv("SECRET_KEY")
-
-
-
-ALLOWED_HOSTS = []
-
->>>>>>> origin/main
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -116,12 +98,7 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -138,24 +115,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
 STATIC_URL = 'static/'
-
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",

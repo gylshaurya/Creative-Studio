@@ -1,30 +1,26 @@
 from rest_framework import serializers
 from .models import Notification
 
-<<<<<<< HEAD
 class NotificationSerializer(serializers.ModelSerializer):
+    # Keep your custom username lookups for the UI to display cleanly
     sender_username = serializers.ReadOnlyField(source='sender.username')
     recipient_username = serializers.ReadOnlyField(source='recipient.username')
 
     class Meta:
         model = Notification
+        # Unified fields array mapping both feature sets
         fields = [
             'id', 
             'recipient', 
             'recipient_username', 
             'sender', 
             'sender_username', 
-            'noti_type', 
-            'verb', 
+            'event_type', 
+            'message', 
             'is_read', 
-            'created_at', 
-            'task'
+            'meta', 
+            'task',
+            'created_at'
         ]
-=======
-
-class NotificationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Notification
-        fields = ['id', 'event_type', 'message', 'is_read', 'meta', 'created_at']
-        read_only_fields = ['id', 'event_type', 'message', 'meta', 'created_at']
->>>>>>> origin/main
+        # Protect the core event data from being altered via API updates
+        read_only_fields = ['id', 'recipient', 'sender', 'event_type', 'message', 'meta', 'task', 'created_at']
