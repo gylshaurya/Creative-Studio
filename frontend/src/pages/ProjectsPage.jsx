@@ -63,6 +63,8 @@ function ProjectsPage() {
                 <nav className="nav-links">
                     <a href="/dashboard">Dashboard</a>
                     <a href="/projects" className="active">Projects</a>
+                    {/* Dynamic link pointing directly to the selected studio's team page */}
+                    <a href={`/team/${selectedStudio?.id}`}>Team</a>
                 </nav>
             </header>
 

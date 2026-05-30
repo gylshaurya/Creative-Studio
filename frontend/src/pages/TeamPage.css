@@ -1,0 +1,44 @@
+.members-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.member-row {
+    background: #fff;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.member-info {
+    flex: 1;
+}
+
+.member-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1a2a4a;
+}
+
+.member-email {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.btn-remove {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+    color: #c0392b;
+    cursor: pointer;
+}
+
+.btn-remove:hover {
+    background: #fdecea;
+    border-color: #c0392b;
+}
