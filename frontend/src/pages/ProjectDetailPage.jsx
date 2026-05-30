@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { apiFetch } from '../api/fetch'
 import './ProjectsPage.css'
 
-// Allowed stage transitions — mirrors the backend validation
 const ALLOWED_TRANSITIONS = {
     DRAFT:     ['REVIEW'],
     REVIEW:    ['REVISION', 'APPROVED'],
@@ -50,7 +49,6 @@ function ProjectDetailPage() {
         }
     }
 
-    // Called when user picks a new stage from the dropdown
     const handleStageChange = async (taskId, newStage) => {
         const response = await apiFetch(
             `/studios/${studioId}/projects/${projectId}/tasks/${taskId}/`,
@@ -61,7 +59,6 @@ function ProjectDetailPage() {
         )
         if (response.ok) {
             const updated = await response.json()
-            // Replace the old task in state with the updated one
             setTasks(tasks.map(t => t.id === taskId ? updated : t))
         } else {
             alert('Stage transition not allowed')
@@ -150,15 +147,12 @@ function ProjectDetailPage() {
                                     <span className={`tag priority-${task.priority.toLowerCase()}`}>
                                         {task.priority}
                                     </span>
-                                    {/* Stage dropdown — only shows allowed next stages */}
                                     <select
                                         className="stage-select"
                                         value={task.stage}
                                         onChange={e => handleStageChange(task.id, e.target.value)}
                                     >
-                                        {/* Always show current stage */}
                                         <option value={task.stage}>{task.stage}</option>
-                                        {/* Show allowed transitions */}
                                         {ALLOWED_TRANSITIONS[task.stage].map(s => (
                                             <option key={s} value={s}>{s}</option>
                                         ))}

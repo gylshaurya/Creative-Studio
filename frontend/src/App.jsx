@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import ProjectsPage from './pages/ProjectsPage'
 import ProjectDetailPage from './pages/ProjectDetailPage'
+import TeamPage from './pages/TeamPage'
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                         <Route path="/dashboard" element={<DashboardPage />} />
                         <Route path="/projects" element={<ProjectsPage />} />
                         <Route path="/projects/:studioId/:projectId" element={<ProjectDetailPage />} />
+                        <Route path="/team/:studioId" element={<TeamPage />} />
                     </Route>
                     <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 </Routes>

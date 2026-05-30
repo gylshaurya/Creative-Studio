@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Task
+from .models import Task, Attachment
 
 
 ALLOWED_TRANSITIONS = {
@@ -36,3 +36,11 @@ class TaskSerializer(serializers.ModelSerializer):
                                  f"Allowed transitions: {allowed}"
                     })
         return data
+    
+class AttachmentSerializer(serializers.ModelSerializer):
+    added_by_name = serializers.CharField(source='added_by.username', read_only=True)
+
+    class Meta:
+        model = Attachment
+        fields = ['id', 'task', 'label', 'added_by', 'added_by_name', 'created_at']
+        read_only_fields = ['id', 'task', 'added_by', 'added_by_name', 'created_at']

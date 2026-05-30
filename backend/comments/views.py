@@ -9,7 +9,6 @@ class CommentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # Only return top-level comments — replies come nested inside them
         return Comment.objects.filter(
             task_id=self.kwargs['task_pk'],
             parent=None

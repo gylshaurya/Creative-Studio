@@ -30,3 +30,17 @@ class TaskViewSet(viewsets.ModelViewSet):
         from projects.models import Project
         project = Project.objects.get(pk=self.kwargs['project_pk'])
         serializer.save(project=project, created_by=self.request.user)
+
+from .models import Task, Attachment
+from .serializers import TaskSerializer, AttachmentSerializer
+
+class AttachmentViewSet(viewsets.ModelViewSet):
+    serializer_class = AttachmentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Attachment.objects.filter(task_id=self.kwargs['task_pk'])
+
+    def perform_create(self, serializer):
+        task = Task.objects.get(pk=self.kwargs['task_pk'])
+        serializer.save(task=task, added_by=self.request.user)

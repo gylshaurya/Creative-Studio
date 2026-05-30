@@ -26,8 +26,6 @@ urlpatterns = [
     # Unified App Workspace Endpoints
     path('api/', include('studios.urls')),
     path('api/', include('projects.urls')),
-    path('api/', include('tasks.urls')),          # ✨ Kept your tasks routing active!
-    path('api/studios/', include('studios.urls')),
-    path('api/', include('notifications.urls')),  # ✨ Unified notifications router!
+    path('api/', include('notifications.urls')),
     path('api/dashboard/', DashboardView.as_view()),
 ]

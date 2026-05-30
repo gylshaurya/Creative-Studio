@@ -52,10 +52,24 @@ class Task(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._original_stage = self.stage
 
     def __str__(self):
         return f"{self.title} [{self.stage}]"
+    
+class Attachment(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='attachment_items')
+    label = models.CharField(max_length=255)
+    added_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='attachments'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.label
